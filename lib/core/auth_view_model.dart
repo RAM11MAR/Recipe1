@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:recipe_app/core/data/repository/auth_repository.dart';
+import 'package:recipe_app/features/auth/data/repositories/auth_repository.dart';
 
 class AuthViewModel extends ChangeNotifier{
   AuthViewModel({required AuthRepository authRepository}): _authRepository = authRepository;

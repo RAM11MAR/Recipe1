@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/data/repository/auth_repository.dart';
+import '../../data/repositories/auth_repository.dart';
 import '../../../../core/widgets/recipe_elevated_button2.dart';
 import '../manager/login_view_model.dart';
 import '../widgets/login_view_form.dart';

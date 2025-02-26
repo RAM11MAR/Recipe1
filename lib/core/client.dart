@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import '../features/auth/data/models/user_model.dart';
 
 class ApiClient {
-  final Dio dio = Dio(
-    BaseOptions(baseUrl: "http://192.168.137.1:8888/api/v1"),
-  );
+
+  ApiClient() {
+    dio = Dio(
+        BaseOptions(baseUrl: "http://192.168.137.1:8888/api/v1"));
+  }
+
+  late final Dio dio;
 
   Future<String> login(String login, String password) async {
     var response = await dio.post(
@@ -18,6 +24,22 @@ class ApiClient {
     } else {
       throw Exception("Login qilib bo'lmadi!");
     }
+  }
+
+  Future<bool> uploadProfilePhoto(File file) async {
+    FormData fromData = FormData.fromMap(
+      {"profilePhoto": await MultipartFile.fromFile(file.path, filename: file.path.split('/').last)},
+    );
+
+    var response = await dio.patch(
+        '/auth/upload', data: fromData, options: Options(headers: {
+      "Content-Type": "multipart/from-data"
+    }));
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 
   Future<bool> signUp(UserModel model) async {
@@ -47,7 +69,7 @@ class ApiClient {
   Future<List<Map<String, dynamic>>> fetchProfileRecipes() async {
     var response = await dio.get("/recipes/list");
     List<Map<String, dynamic>> data =
-        List<Map<String, dynamic>>.from(response.data);
+    List<Map<String, dynamic>>.from(response.data);
     return data;
   }
 

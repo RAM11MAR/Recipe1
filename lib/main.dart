@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/core.dart';
-import 'package:recipe_app/core/data/repository/auth_repository.dart';
+import 'package:recipe_app/features/auth/data/repositories/auth_repository.dart';
+import 'package:recipe_app/features/auth/presentation/pages/complete_your_profile_view.dart';
 import 'package:recipe_app/features/auth/presentation/pages/login_view.dart';
 import 'package:recipe_app/features/auth/presentation/pages/sign_up_view.dart';
 
@@ -18,12 +19,13 @@ import 'features/profile/presentation/pages/profile_view_model.dart';
 void main() => runApp(RecipeApp());
 
 GoRouter router = GoRouter(
-  initialLocation: '/signUp',
+  initialLocation: '/completeProfile',
   routes: [
     GoRoute(path: '/onboarding', builder: (context, state) => OnboardingView(viewModel: OnboardingViewModel(repo: OnboardingRepository(client: ApiClient())))),
     GoRoute(path: '/profile', builder: (context, state) => ProfileView(viewModel: ProfileViewModel(repo: ProfileRepository(client: ApiClient())))),
     GoRoute(path: '/login', builder: (context, state) => LoginView()),
     GoRoute(path: '/signUp', builder: (context, state) => SignUpView()),
+    GoRoute(path: '/completeProfile', builder: (context, state) => CompleteYourProfileView()),
     GoRoute(path: '/categories',builder: (context, state) => CategoriesView(vm: CategoriesViewModel(repo: CategoriesRepository(client: ApiClient())))),
   ],
 );
